@@ -4,22 +4,32 @@ export const registerController = async (req, res) => {
   try {
     const { email, password } = req.body
     if (!(email && password)) {
-      res.status(400).send('All input is required')
+      res.status(400).json({ message: 'All input is required' })
     }
 
     const oldUser = await UserModel.findOne({ email })
 
     if (oldUser) {
-      return res.status(409).send('User Already Exist. Please Login')
+      return res
+        .status(409)
+        .json({ message: 'User Already Exist. Please Login' })
     }
 
-    let user = await UserService.registerUser(email, password)
+    const user = await UserService.registerUser(email, password)
 
-    return res.status(200).json({
-      status: 'Success',
-      data: user,
-      message: 'User Register Successfully',
-    })
+    if (user) {
+      return res.status(200).json({
+        status: 'Success',
+        data: user,
+        message: 'User Register Successfully'
+      })
+    } else {
+      return res.status(400).json({
+        status: 'Fail',
+        data: user,
+        message: 'Couldnt Create User'
+      })
+    }
   } catch (e) {
     return res
       .status(400)
@@ -35,11 +45,11 @@ export const loginController = async (req, res) => {
     if (!(email && password)) {
       res.status(400).send('All input is required')
     }
-    let register = await UserService.loginUser(email, password);
+    const register = await UserService.loginUser(email, password)
     return res.status(200).json({
-      _id:register._id,
-      email:register.email,
-      token:register.token,
+      _id: register._id,
+      email: register.email,
+      token: register.token
     })
   } catch (e) {
     return res
@@ -49,21 +59,14 @@ export const loginController = async (req, res) => {
 }
 
 export const allUserController = async (req, res) => {
-  try {
-    let allUsers
-    allUsers = await UserService.getAllUsers()
-    return res.status(200).json({
-      status: 'Success',
-      data: allUsers,
-      message: 'List of all users',
-    })
-  } catch (error) {
-    console.log(error)
-    throw error
-  }
+  const allUsers = await UserService.getAllUsers()
+  return res.status(200).json({
+    status: 'Success',
+    data: allUsers,
+    message: 'List of all users'
+  })
 }
 
-
-export const getGoals=(req,res)=>{
-  res.status(200).json({"message":"success"});
+export const getGoals = (req, res) => {
+  res.status(200).json({ message: 'success' })
 }
