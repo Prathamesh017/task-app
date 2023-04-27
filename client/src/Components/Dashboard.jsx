@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Header from './Header'
 import Register from './Register'
 import Login from './Login';
+import { useSelector } from 'react-redux';
 function Dashboard() {
-const [loginOrRegister,setLoginorRegister]=useState(true);
+ const showTab=useSelector((state)=>{
+  return state.switch.showTab;
+})
+console.log(showTab);
   return (
     <div className='App'>
         <div>
         <Header></Header>
         </div>
         <div>
-        {loginOrRegister===true?<Register></Register>:<Login></Login>}
+        {showTab===true?<Register></Register>:<Login></Login>}
         </div>
        
     </div>

@@ -1,22 +1,21 @@
-// const initialState = {
-//    showTab:true    
-// }
-  
-//   export default function switchTabReducer(state = initialState, action) {
-//     switch (action.type) {
-//       case 'switch-login': {
-//         return {
-//           ...state,
-//           showTab: false
-//         }
-//       }
-//       case 'switch-register': {
-//         return {
-//           ...state,
-//           showTab: true
-//         }
-//       }
-//       default:
-//         return state
-//     }
-//   }
+import { createSlice } from '@reduxjs/toolkit'
+
+export const tabSlice = createSlice({
+  name: 'showTab',
+  initialState: {
+    showTab: true,
+  },
+  reducers: {
+    showLogin: (state) => ({
+      ...state,
+      showTab: false,
+    }),
+    showRegister: (state) => ({
+      ...state,
+      showTab: true,
+    }),
+  },
+})
+export const { showLogin, showRegister } = tabSlice.actions
+
+export default tabSlice.reducer

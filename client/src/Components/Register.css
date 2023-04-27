@@ -14,12 +14,23 @@ h3{
     color:gray;
 }
 .form{
+    width: 100%;
     margin-top:20px;
     display: flex;
     flex-direction: column;
     gap:20px;
+    /* border: 2px solid red; */
+}
+.input-div>p{
+    text-align: left;
+    color:red;
+    position: absolute;
+    margin-left:5px;
+    font-size: small;
+
 }
 input{
+    width: 100%;
     padding: .5em;
     border: 2px solid black;
 }
