@@ -7,7 +7,7 @@ function Dashboard() {
  const showTab=useSelector((state)=>{
   return state.switch.showTab;
 })
-console.log(showTab);
+
   return (
     <div className='App'>
         <div>

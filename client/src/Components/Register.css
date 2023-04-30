@@ -31,7 +31,7 @@ h3{
 }
 input{
     width: 100%;
-    padding: .5em;
+     padding: .5em;
     border: 2px solid black;
 }
 
@@ -49,10 +49,19 @@ button{
 button:hover{
     cursor: pointer;
     color:wheat;
+} 
+.final-error{
+    color:red;
+    font-size: 25px;
+    margin-top: 10px;
 }
 @media only screen and (max-width: 500px) {
     .register{
         width: 80%;
-     
     }
-  }
+    .final-error{
+        color:red;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+  } 

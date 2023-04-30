@@ -1,5 +1,5 @@
 import { TaskModel } from '../models/taskModel.js'
-const addTask = async (userId, taskName, taskNumber) => {
+const addTask = async (userId, taskNumber, taskName) => {
   const user = await TaskModel.create({
     taskName,
     taskNumber,
@@ -14,7 +14,7 @@ const getAllTasks = async (id) => {
   return allTasks
 }
 const deleteTask = async (id) => {
-  await TaskModel.findByIdAndDelete({ id })
+  await TaskModel.findByIdAndDelete({ _id: id })
 }
 const TaskService = {
   addTask,

@@ -21,10 +21,13 @@ dotenv.config()
 
 await dbconnect()
 
-// if(process.env.NODE_ENV==="production"){
-//   app.use(express.static(path.join(__dirname,"../client/build")));
-//     app.get("*",(req,res)=>res.sendFile(path.resolve(__dirname,'../','client',"build","index.html")));
-// }
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_URL],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  })
+)
 
 app.use('/api/v1/user', usersRouter)
 app.use('/api/v1/task', taskRouter)

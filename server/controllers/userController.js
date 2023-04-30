@@ -2,8 +2,9 @@ import UserService from '../services/userService.js'
 import { UserModel } from '../models/userModel.js'
 export const registerController = async (req, res) => {
   try {
-    const { email, password } = req.body
-    if (!(email && password)) {
+    console.log(req.body)
+    const { name, email, password } = req.body
+    if (!(name, email && password)) {
       res.status(400).json({ message: 'All input is required' })
     }
 
@@ -15,7 +16,8 @@ export const registerController = async (req, res) => {
         .json({ message: 'User Already Exist. Please Login' })
     }
 
-    const user = await UserService.registerUser(email, password)
+    console.log(name, email, password)
+    const user = await UserService.registerUser(name, email, password)
 
     if (user) {
       return res.status(200).json({
@@ -45,16 +47,19 @@ export const loginController = async (req, res) => {
     if (!(email && password)) {
       res.status(400).send('All input is required')
     }
-    const register = await UserService.loginUser(email, password)
+    const login = await UserService.loginUser(email, password)
     return res.status(200).json({
-      _id: register._id,
-      email: register.email,
-      token: register.token
+      status: 'Success',
+      data: {
+        _id: login._id,
+        name: login.name,
+        email: login.email,
+        token: login.token
+      },
+      message: 'User Login Successfull'
     })
-  } catch (e) {
-    return res
-      .status(400)
-      .json({ status: 'Failure', message: 'Login unSuccessfull' })
+  } catch (error) {
+    return res.status(400).json({ status: 'Failure', message: error.message })
   }
 }
 

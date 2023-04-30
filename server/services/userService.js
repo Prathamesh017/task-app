@@ -1,10 +1,11 @@
 import { UserModel } from '../models/userModel.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-const registerUser = async (email, password) => {
+const registerUser = async (name, email, password) => {
   try {
     const encryptedPassword = await bcrypt.hash(password, 10)
     const user = await UserModel.create({
+      name,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       password: encryptedPassword
     })
@@ -29,7 +30,7 @@ const registerUser = async (email, password) => {
 
 const loginUser = async (email, password) => {
   const user = await UserModel.findOne({ email })
-  console.log(user.password)
+
   if (!user) {
     throw Error("User Doesn't Exist.Please Register")
   }
@@ -49,7 +50,7 @@ const loginUser = async (email, password) => {
     // user
     return user
   } else {
-    throw new Error('Invalid Credentials')
+    throw new Error('Incorrect Password')
   }
 }
 
