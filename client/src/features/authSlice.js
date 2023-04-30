@@ -72,7 +72,7 @@ export const registerUser = createAsyncThunk('user/register', async (data,{rejec
   try{
 
   const { name, email, password } = data
-  const response = await axios.post('/api/v1/user/register', {
+  const response = await axios.post('https://task-app-backend-z8r0.onrender.com/api/v1/user/register', {
     name,
     email,
     password,
@@ -89,7 +89,7 @@ export const loginUser = createAsyncThunk(
     const { email, password } = data
   
     try {
-      const response = await axios.post('/api/v1/user/login', {
+      const response = await axios.post('https://task-app-backend-z8r0.onrender.com/api/v1/user/login', {
         email,
         password,
       })
